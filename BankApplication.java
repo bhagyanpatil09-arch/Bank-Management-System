@@ -79,7 +79,7 @@ public class BankApplication {
 
         bank.displayAccountDetails();
 
-        String accountSummary = bank.accountSummary();z
+        String accountSummary = bank.accountSummary();
         System.out.println(accountSummary);
 
         double minimumBalance = scanner.nextDouble();
