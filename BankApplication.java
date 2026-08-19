@@ -1,96 +1,64 @@
+
 import java.util.Scanner;
 
-public class Bank {
-
-    String bankName;
-    int userId;
-    String userName;
-    long accountNumber;
-    String accountType;
-    double balance;
-
-    Bank(String bankName, int userId, String userName, long accountNumber, String accountType, double balance) {
-        this.bankName = bankName;
-        this.userId = userId;
-        this.userName = userName;
-        this.accountNumber = accountNumber;
-        this.accountType = accountType;
-        this.balance = balance;
-
-    }
-
-    void displayBankDetails() {
-        System.out.println("Bank Name: " + bankName);
-
-    }
-
-    void displayUserDetails() {
-        System.out.println("UserId: " + userId);
-        System.out.println("UserName: " + userName);
-
-    }
-
-    void displayAccountDetails() {
-        System.out.println("Account Number: " + accountNumber);
-        System.out.println("Account Type: " + accountType);
-        System.out.println("Current Balance: " + balance);
-    }
-
-    String accountSummary() {
-        String accountSummary = "Bank name : " + bankName
-                + "\nUser name : " + userName
-                + "\nAccount number : " + accountNumber
-                + "\nAccpunt Type: " + accountType
-                + "\nbalance: " + balance;
-        return accountSummary;
-    }
-
-    boolean hasMinimumBalance(double minimumBalance) {
-        boolean result = false;
-        if (balance >= minimumBalance) {
-            result = true;
-        }
-        return result;
-    }
-
-}
-
 public class BankApplication {
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String bankName = scanner.nextLine();
 
-        int userId = scanner.nextInt();
-        scanner.nextLine();
+        Scanner input = new Scanner(System.in);
 
-        String userName = scanner.nextLine();
+        System.out.print("Enter bank name: ");
+        String bankName = input.nextLine();
 
-        long accountNumber = scanner.nextLong();
-        scanner.nextLine();
+        System.out.print("Enter user ID: ");
+        int userId = input.nextInt();
+        input.nextLine();
 
-        String accountType = scanner.nextLine();
+        System.out.print("Enter user name: ");
+        String userName = input.nextLine();
 
-        double openingBalance = scanner.nextDouble();
-        Bank bank = new Bank(bankName, userId, userName, accountNumber, accountType, openingBalance);
+        System.out.print("Enter account number: ");
+        long accountNumber = input.nextLong();
+        input.nextLine();
 
-        bank.displayBankDetails();
+        System.out.print("Enter account type: ");
+        String accountType = input.nextLine();
 
-        bank.displayUserDetails();
+        System.out.print("Enter opening balance: ");
+        double balance = input.nextDouble();
 
-        bank.displayAccountDetails();
+        Bank bankAccount = new Bank(
+                bankName,
+                userId,
+                userName,
+                accountNumber,
+                accountType,
+                balance);
 
-        String accountSummary = bank.accountSummary();
+        System.out.println("\n=== Bank Details ===");
+        bankAccount.displayBankDetails();
+
+        System.out.println("\n=== User Details ===");
+        bankAccount.displayUserDetails();
+
+        System.out.println("\n=== Account Details ===");
+        bankAccount.displayAccountDetails();
+
+        System.out.println("\n=== Account Summary ===");
+        String accountSummary = bankAccount.createAccountSummary();
         System.out.println(accountSummary);
 
-        double minimumBalance = scanner.nextDouble();
-        boolean isMaintained = bank.hasMinimumBalance(minimumBalance);
+        System.out.print("\nEnter the required minimum balance: ");
+        double minimumBalance = input.nextDouble();
 
-        if (isMaintained) {
+        boolean result = bankAccount.hasMinimumBalance(minimumBalance);
+
+        if (result) {
             System.out.println("Minimum balance is maintained.");
         } else {
             System.out.println("Minimum balance is not maintained.");
         }
 
-        scanner.close();
+        input.close();
     }
 }
